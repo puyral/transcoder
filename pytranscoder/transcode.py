@@ -90,9 +90,21 @@ class QueueThread(Thread):
                 if job.profile.is_ffmpeg:
                     if job.info.is_multistream() and self.config.automap and job.profile.automap:
                         output_opt = output_opt + job.info.ffmpeg_streams(job.profile)
-                    cli = ['-y', *input_opt, '-i', str(job.inpath), *output_opt, str(outpath)]
+                    cli = [
+                        '-y', 
+                        *input_opt, 
+                        '-i', 
+                        '"{}"'.format(str(job.inpath)), 
+                        *output_opt, 
+                        '"{}"'.format(str(outpath))]
                 else:
-                    cli = ['-i', str(job.inpath), *input_opt, *output_opt, '-o', str(outpath)]
+                    cli = [
+                        '-i', 
+                        '"{}"'.format(str(job.inpath)), 
+                        *input_opt, 
+                        *output_opt, 
+                        '-o', 
+                        '"{}"'.format(str(outpath))]
 
                 #
                 # display useful information
