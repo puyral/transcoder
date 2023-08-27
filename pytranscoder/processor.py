@@ -27,12 +27,13 @@ class Processor:
 
     def execute_and_monitor(self, params, event_callback, monitor) -> Optional[int]:
         self.last_command = ' '.join([self.path, *params])
-        with subprocess.Popen([self.path,
-                               *params],
+        with subprocess.Popen(
+                            # [self.path, *params],
+                            self.last_command,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT,
                               universal_newlines=True,
-                              shell=False) as p:
+                              shell=True) as p:
 
             for stats in monitor(p):
                 if event_callback is not None:

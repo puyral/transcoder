@@ -85,10 +85,12 @@ class QueueThread(Thread):
                 else:
                     outpath = job.inpath.with_suffix(job.directives.extension() + '.tmp')
 
+
                 stream_map = []
                 if job.info.is_multistream() and self.config.automap:
                     stream_map = job.directives.stream_map(job.info.stream, job.info.audio, job.info.subtitle)
                 cli = ['-y', *job.directives.input_options_list(), '-i', str(job.inpath), *job.directives.output_options_list(self.config, job.mixins), *stream_map, str(outpath)]
+
 
                 #
                 # display useful information
