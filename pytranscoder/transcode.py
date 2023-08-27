@@ -439,10 +439,11 @@ def start():
         #
         tmpfiles = files_from_file(configfile.default_queue_file)
         queue_path = configfile.default_queue_file
-        if cluster is None:
-            files.extend([(f, profile or template, mixins) for f in tmpfiles])
-        else:
-            files.extend([(f, cluster, profile or template) for f in tmpfiles])
+        files.extend([(f, profile or template, mixins) for f in tmpfiles])
+        #if cluster is None:
+        #    files.extend([(f, profile or template, mixins) for f in tmpfiles])
+        #else:
+        #    files.extend([(f, cluster, profile or template) for f in tmpfiles])
 
     if len(files) == 0:
         print(crayons.yellow(f'Nothing to do'))
