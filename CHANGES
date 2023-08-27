@@ -1,6 +1,17 @@
 
 ### Version History
 
+Version 2.2.7:
+    * Fixed streaming host class where spaces in filenames weren't being recognized by Windows
+
+Version 2.2.6:
+    * Added new templates which can be used instead of the more complicated profiles
+
+Version 2.2.5:
+    * Much overdue doc updates
+    * Addition of agent mode as alternative to using ssh.
+    * Fixed issue cleaning up temp files on Windows host in streaming mode.
+
 Version 2.2.4:
     * Fixed issue where sometimes the wrong video stream is detected when there are multiple
 

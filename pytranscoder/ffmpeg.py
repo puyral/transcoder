@@ -25,9 +25,6 @@ class FFmpeg(Processor):
         super().__init__(ffmpeg_path)
         self.monitor_interval = 30
 
-    def is_ffmpeg(self) -> bool:
-        return True
-
     def fetch_details(self, _path: str) -> MediaInfo:
         """Use ffmpeg to get media information
 
@@ -88,8 +85,42 @@ class FFmpeg(Processor):
 
         if proc.returncode == 0:
             # if we got here then everything went fine, so remove the transaction log
-            os.remove(str(self.log_path))
+            try:
+                os.remove(str(self.log_path))
+            except Exception:
+                pass
             self.log_path = None
+
+    def monitor_agent(self, sock):
+        diff = datetime.timedelta(seconds=self.monitor_interval)
+        event = datetime.datetime.now() + diff
+        while True:
+            c = sock.recv(1024).decode()
+            if c.startswith("DONE|") or c.startswith("ERR|"):
+                print("Transcode complete, receiving results..")
+                # found end of processing marker
+                try:
+                    os.remove(str(self.log_path))
+                    self.log_path = None
+                except Exception:
+                    pass
+
+                yield c
+
+            sock.send(bytes("ACK!".encode()))
+            line = c
+
+            match = status_re.match(line)
+            if match is not None and len(match.groups()) >= 5:
+                if datetime.datetime.now() > event:
+                    event = datetime.datetime.now() + diff
+                    info: Dict[str, Any] = match.groupdict()
+
+                    info['size'] = int(info['size'].strip()) * 1024
+                    hh, mm, ss = info['time'].split(':')
+                    ss = ss.split('.')[0]
+                    info['time'] = (int(hh) * 3600) + (int(mm) * 60) + int(ss)
+                    yield info
 
     def run(self, params, event_callback) -> Optional[int]:
         return self.execute_and_monitor(params, event_callback, self.monitor_ffmpeg)

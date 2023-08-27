@@ -6,9 +6,12 @@ for automation.
 
 
 #### News
-Pytranscoder now supports better profiles.  Existing ones are backward-compatible unless you try to use mixings.
-The mixin feature allows you to create pieces of profiles and combine them into another profile on the commandline at runtime.
-This negates the need to create many unique permutations of a profile just for simple variances.
+
+**Coming soon**
+
+Version 3 will include an alternate means of configuring your setup.  Let's face it, all that YAML is confusing.
+The new version will use templating and be far simpler and very much smaller -- all my converted profiles fit on one screen now.
+Existing profile support will remain indefinitely for users with more complicated setups, but templates will appeal more to most users.
 
 
 #### What it is
