@@ -28,8 +28,8 @@ class Processor:
     def execute_and_monitor(self, params, event_callback, monitor) -> Optional[int]:
         self.last_command = ' '.join([self.path, *params])
         with subprocess.Popen(
-                            # [self.path, *params],
-                            self.last_command,
+                            [self.path, *params],
+                            # self.last_command,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT,
                               universal_newlines=True,
