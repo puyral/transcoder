@@ -35,7 +35,7 @@ class Processor:
                               stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT,
                               universal_newlines=True,
-                              shell=True) as p:
+                              shell=False) as p:
 
             for stats in monitor(p):
                 if event_callback is not None:
