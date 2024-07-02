@@ -39,7 +39,7 @@ class MediaInfo:
         runtime = "{:0>8}".format(str(timedelta(seconds=self.runtime)))
         for a in self.audio:
             print(a)
-        audios = [a['stream'] + ':' + a['lang'] + ':' + a['format'] + ':' + a['default'] for a in self.audio]
+        audios = [a['stream'] + ':' + a['lang'] + ':' + a['format'] + ':' + str(a['default']) for a in self.audio]
         audio = '(' + ','.join(audios) + ')'
         subs = [s['stream'] + ':' + s['lang'] + ':'  for s in self.subtitle]
         sub = '(' + ','.join(subs) + ')'
