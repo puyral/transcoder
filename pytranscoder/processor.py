@@ -30,7 +30,7 @@ class Processor:
         with subprocess.Popen(
                             [self.path, *params],
                             # args = params,
-                            executable= self.path,
+                            # executable= self.path,
                             # self.last_command,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT,
