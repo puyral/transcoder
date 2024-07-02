@@ -28,7 +28,9 @@ class Processor:
     def execute_and_monitor(self, params, event_callback, monitor) -> Optional[int]:
         self.last_command = ' '.join([self.path, *params])
         with subprocess.Popen(
-                            [self.path, *params],
+                            # [self.path, *params],
+                            args = params,
+                            executable= self.path,
                             # self.last_command,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT,
