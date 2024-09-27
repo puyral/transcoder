@@ -442,7 +442,7 @@ def start():
         if cluster is None:
             files.extend([(f, profile or template, mixins) for f in tmpfiles])
         else:
-            files.extend([(f, cluster, profile or template) for f in tmpfiles])
+            files.extend([(f, cluster, profile or template, mixins) for f in tmpfiles])
 
     if len(files) == 0:
         print(crayons.yellow(f'Nothing to do'))
